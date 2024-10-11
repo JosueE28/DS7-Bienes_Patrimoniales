@@ -1,0 +1,22 @@
+body{
+    height: 100vh;
+}
+
+.depre{
+    height: 100vh;
+    width: 100vh;
+    padding: 5px;
+    
+}
+
+.btn{
+    background-color: #1d75e9;
+}
+.btn:hover{
+    background-color: #03316d;
+}
+
+table thead {
+    background-color: #001b48 !important;
+    color: white;
+}
