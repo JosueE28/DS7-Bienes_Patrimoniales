@@ -109,7 +109,7 @@
                             <th>Proveedor</th>
                             <th>Departamento</th>
                         </tr>
-                    </thead>
+                    </thead> 
                     <tbody>
                         <tr>
                             <td>001</td>
