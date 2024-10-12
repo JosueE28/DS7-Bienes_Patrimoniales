@@ -38,67 +38,83 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <!-- Title -->
-        <h1 class="text-center" style="font-family: 'Poppins', sans-serif; color: #001b48;">Registro de Activos Fijos</h1>
-        <div class="container mt-5 depre">
-            <!-- Formulario de Activos Fijos -->
-            <form action="" method="POST" class="mt-4">
+    <div class="container mt-5"> 
+        <!-- Formulario de Activos Fijos -->
+        <form action="" method="POST" class="mt-4">
+            <div class="container mt-5 depre">
+                <h1 class="text-center titulo" style="font-family: 'Poppins', sans-serif; color: black;">Registro de Activos Fijos</h1>
                 <div class="row">
-                        <!-- Código -->
-                        <div class="col-md-6 mb-3">
-                            <label for="codigo" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Código</label>
-                            <input type="text" class="form-control" id="codigo" name="codigo">
-                        </div>
-
-                        <!-- Depreciación -->
-                        <div class="col-md-6 mb-3">
-                            <label for="fecha" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Fecha</label>
-                            <input type="date" class="form-control" id="fecha" name="fecha">
-
-                        </div>
+                    <!-- Código -->
+                    <div class="col-md-6 mb-3">
+                        <label for="codigo" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Código</label>
+                        <input type="text" class="form-control" id="codigo" name="codigo">
                     </div>
 
-                    <div class="row">
-                        <!-- Descripción -->
-                        <div class="col-md-12 mb-3">
-                            <label for="descripcion" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Descripción</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
-                        </div>
+                    <!-- Fecha -->
+                    <div class="col-md-6 mb-3">
+                        <label for="fecha" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Descripción -->
+                    <div class="col-md-12 mb-3">
+                        <label for="descripcion" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Precio -->
+                    <div class="col-md-4 mb-3 custom-gap">
+                        <label for="precio" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Precio</label>
+                        <input type="number" class="form-control" id="precio" name="precio">
                     </div>
 
-                    <div class="row">
-                        <!-- Precio -->
-                        <div class="col-md-4 mb-3">
-                            <label for="precio" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Precio</label>
-                            <input type="number" class="form-control" id="precio" name="precio">
-                        </div>
+                    <!-- Serie -->
+                    <div class="col-md-4 mb-3 custom-gap">
+                        <label for="serie" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Serie</label>
+                        <input type="text" class="form-control" id="serie" name="serie">
+                    </div>
 
-                        <!-- Proveedor -->
-                        <div class="col-md-4 mb-3">
-                            <label for="proveedor" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Proveedor</label>
-                            <input type="text" class="form-control" id="proveedor" name="proveedor">
-                        </div>
+                    <!-- Placa -->
+                    <div class="col-md-4 mb-3 custom-gap">
+                        <label for="placa" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Placa</label>
+                        <input type="text" class="form-control" id="placa" name="placa">
+                    </div>
+                </div>
 
-                        <!-- Departamento -->
-                        <div class="col-md-4 mb-3">
-                            <label for="departamento" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Departamento</label>
-                            <select class="form-control" id="departamento" name="departamento">
-                                <option value="">Seleccione un departamento</option>
-                                <option value="Recursos Humanos">Recursos Humanos</option>
-                                <option value="Contabilidad">Contabilidad</option>
-                                <option value="Compras">Compras</option>
-                                <option value="Bienes Patrimoniales">Bienes Patrimoniales</option>
-                                <option value="Tecnologia">Tecnología</option>
-                            </select>
-                        </div>
+                <div class="row">
+                    <!-- Proveedor -->
+                    <div class="col-md-6 mb-3">
+                        <label for="proveedor" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Proveedor</label>
+                        <input type="text" class="form-control " id="proveedor" name="proveedor">
+                    </div>
 
+                    <!-- Departamento -->
+                    <div class="col-md-6 mb-3">
+                        <label for="departamento" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Departamento</label>
+                        <select class="form-control" id="departamento" name="departamento">
+                            <option value="">Seleccione un departamento</option>
+                            <option value="Recursos Humanos">Recursos Humanos</option>
+                            <option value="Contabilidad">Contabilidad</option>
+                            <option value="Compras">Compras</option>
+                            <option value="Bienes Patrimoniales">Bienes Patrimoniales</option>
+                            <option value="Tecnología">Tecnología</option>
+                        </select>
+                    </div>
+                </div>
 
-                    <!-- Botones -->
+                <!-- Botones -->
+                <div class="row">
                     <div class="text-center mt-4">
                         <button type="button" class="btn" id="btn1" style=" color: #fff; font-family: 'Roboto', sans-serif;">Guardar</button>
                         <button type="button" class="btn" id="btn2" style=" color: #fff; font-family: 'Roboto', sans-serif;">Consultar</button>
+                    </div>
                 </div>
+
+                <!-- Tabla -->
                 <table class="table mt-5">
                     <thead>
                         <tr>
@@ -106,6 +122,8 @@
                             <th>Fecha de Compra</th>
                             <th>Descripción</th>
                             <th>Precio</th>
+                            <th>Serie</th>
+                            <th>Placa</th>
                             <th>Proveedor</th>
                             <th>Departamento</th>
                         </tr>
@@ -116,11 +134,13 @@
                             <td>2023-10-01</td>
                             <td>Computadora de oficina</td>
                             <td>$1200</td>
+                            <td>S123456</td>
+                            <td>P987654</td>
                             <td>Proveedor A</td>
                             <td>TI</td>
                         </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
         </form>
     </div>
@@ -196,20 +216,25 @@
                  btn1.addEventListener('click', () =>{
                 let codigo = document.getElementById('codigo').value;
                 let descripcion = document.getElementById('descripcion').value;
+                let fecha = document.getElementById('fecha').value;
                 let proveedor = document.getElementById('proveedor').value;
                 let departamento = document.getElementById('departamento').value;
                 let precio = document.getElementById('precio').value;
+                let placa = document.getElementById('placa').value;
+                let serie = document.getElementById('serie').value;
                
-                if (!codigo || !descripcion || !proveedor || !departamento || !precio) {
+                if (!codigo || !descripcion || !proveedor || !departamento || !precio || !serie || !placa) {
                     alert("Por favor, complete todos los campos requeridos.");
                     return;
                 }
-                let fechaactual = Date();
-                console.log(fechaactual);
+               
                 parametro ={
                     "codigo": codigo,
                     "descripcion": descripcion,
                     "proveedor":  proveedor,
+                    "fecha":  fecha,
+                    "placa":  placa,
+                    "serie":  serie,
                     "departamento": departamento
                 }
 

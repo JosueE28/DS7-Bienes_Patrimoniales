@@ -1,13 +1,23 @@
 body{
-    height: 100vh;
-    background-color: rgb(224, 224, 224);
+    min-height: 150vh;
+    max-height: auto;
+    background-color:  rgb(218, 218, 218);
+   
 }
 
 .depre{
-    height: 100vh;
-    width: 100vh;
+    min-height: 130vh;
+    width: 120vh;
     padding: 5px;
-    
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 6px;
+    overflow-y:visible;
+}
+
+
+.titulo{
+    margin-bottom: 65px;
 }
 
 .btn{
@@ -20,4 +30,9 @@ body{
 table thead {
     background-color: #001b48 !important;
     color: white;
+}
+
+.custom-gap {
+    margin: 0 -5px;
+    width: 34.2%;
 }
