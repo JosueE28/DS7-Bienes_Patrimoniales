@@ -212,7 +212,7 @@
             }
         });
 
-        document.querySelector('#btn1').addEventListener('click', (event) => {
+        document.querySelector('#btn2').addEventListener('click', (event) => {
             event.preventDefault(); 
 
            
