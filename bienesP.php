@@ -179,7 +179,7 @@
         function calcularDepreciacion(precio, vidaUtil, valorSalvamento) {
             return (precio - valorSalvamento) / vidaUtil;
         }
-
+        // Josué analiza si esto podría ser en el botón de guardar
         document.querySelector('#btn2').addEventListener('click', (event) => {
             event.preventDefault();
 
