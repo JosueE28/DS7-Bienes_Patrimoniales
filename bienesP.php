@@ -175,6 +175,43 @@
             document.getElementById('precio').addEventListener('input', soloNumeros);
         });
 
+        // Función para calcular la depreciación de línea recta
+        function calcularDepreciacion(precio, vidaUtil, valorSalvamento) {
+            return (precio - valorSalvamento) / vidaUtil;
+        }
+
+        document.querySelector('#btn2').addEventListener('click', (event) => {
+            event.preventDefault();
+
+            let departamento = document.getElementById('departamento').value;
+            let precio = document.getElementById('precio').value;
+            let vidaUtil = 5; // Asumimos 5 años de vida útil
+            let valorSalvamento = 100; // Asumimos un valor de salvamento de $100
+
+            if (precio) {
+                let depreciacionAnual = calcularDepreciacion(precio, vidaUtil, valorSalvamento);
+                
+                // Consulta para actualizar el campo depreciación en la tabla bienes_patrimoniales
+                let parametro = {
+                    "codigo": document.getElementById('codigo').value,
+                    "depreciacion": depreciacionAnual
+                };
+
+                $.ajax({
+                    data: parametro,
+                    type: 'POST',
+                    url: 'ajax/insert.php',
+                    success: function(mensaje_mostrar){
+                        console.log(mensaje_mostrar);
+                        alert('Actualización exitosa con depreciación: ' + depreciacionAnual);
+                    },
+                    error: function() {
+                        alert('Error al actualizar la depreciación');
+                    }
+                });
+            }
+        });
+
         document.querySelector('#btn2').addEventListener('click', (event) => {
             event.preventDefault(); 
 
