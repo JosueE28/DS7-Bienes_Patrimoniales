@@ -11,7 +11,7 @@ if ($est->connect_errno) {
     die(utf8_decode("Fallo la conexión a MySQL: " . $est->connect_errno . " " . mysqli_connect_error()));
    
 } else{
-   echo'listo mi pana';
+   echo'';
 }
 
 ini_set('display_errors', 1);

@@ -36,3 +36,14 @@ table thead {
     margin: 0 -5px;
     width: 34.2%;
 }
+
+.codigobtn{
+    transform: translateY(33px);
+    position: relative;
+}
+
+ .codigobtn #botoncodigo{
+    position: absolute;
+    left: 0;
+    
+}

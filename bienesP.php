@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body>
@@ -45,11 +46,13 @@
                 <h1 class="text-center titulo" style="font-family: 'Poppins', sans-serif; color: black;">Registro de Activos Fijos</h1>
                 <div class="row">
                     <!-- Código -->
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="codigo" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Código</label>
                         <input type="text" class="form-control" id="codigo" name="codigo">
                     </div>
-
+                    <div class="col-md-2 mb-3 codigobtn">
+                        <button type="button" class="btn" id="botoncodigo" style=" color: #fff; font-family: 'Roboto', sans-serif;">buscar</button>
+                    </div>   
                     <!-- Fecha -->
                     <div class="col-md-6 mb-3">
                         <label for="fecha" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Fecha</label>
@@ -86,22 +89,57 @@
                 </div>
 
                 <div class="row">
+                    <!-- Código -->
+                    <div class="col-md-6 mb-3">
+                        <label for="codigo" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Modelo</label>
+                        <input type="text" class="form-control" id="modelo" name="modelo">
+                    </div>
+
+                    <!-- Fecha -->
+                    <div class="col-md-6 mb-3">
+                        <label for="fecha" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Marca</label>
+                        <input type="text" class="form-control" id="marca" name="marca">
+                    </div>
+                </div>
+
+                <div class="row">
                     <!-- Proveedor -->
                     <div class="col-md-6 mb-3">
                         <label for="proveedor" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Proveedor</label>
-                        <input type="text" class="form-control " id="proveedor" name="proveedor">
+                        <select class="form-control" id="proveedor" name="proveedor">
+            
+                        <?php include 'conexion.php';
+                            $sqlselectdep = "SELECT * FROM proveedores";
+                            $sql_query_dep_select = mysqli_query($est, $sqlselectdep);
+
+                            while($row=mysqli_fetch_assoc($sql_query_dep_select)){
+                                $iddepa = $row['ID_Proveedor'];
+                                $depaname = $row['Nombre_Proveedor'];
+                                echo"<option value='$iddepa'>$depaname</option>";
+
+                            }
+                        
+                        ?>
+                        </select>
                     </div>
 
                     <!-- Departamento -->
                     <div class="col-md-6 mb-3">
                         <label for="departamento" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Departamento</label>
                         <select class="form-control" id="departamento" name="departamento">
-                            <option value="">Seleccione un departamento</option>
-                            <option value="Recursos Humanos">Recursos Humanos</option>
-                            <option value="Contabilidad">Contabilidad</option>
-                            <option value="Compras">Compras</option>
-                            <option value="Bienes Patrimoniales">Bienes Patrimoniales</option>
-                            <option value="Tecnología">Tecnología</option>
+            
+                            <?php include 'conexion.php';
+                                $sqlselectdep = "SELECT * FROM departamentos";
+                                $sql_query_dep_select = mysqli_query($est, $sqlselectdep);
+
+                                while($row=mysqli_fetch_assoc($sql_query_dep_select)){
+                                    $iddepa = $row['ID_Departamento'];
+                                    $depaname = $row['Nombre_Departamento'];
+                                    echo"<option value='$iddepa'>$depaname</option>";
+
+                                }
+                            
+                            ?>
                         </select>
                     </div>
                 </div>
@@ -162,7 +200,6 @@
             // Asignar eventos para los campos que solo aceptan letras y símbolos especiales
             document.getElementById('descripcion').addEventListener('input', soloLetrasYSimbolos);
             document.getElementById('proveedor').addEventListener('input', soloLetrasYSimbolos);
-            document.getElementById('departamento').addEventListener('input', soloLetrasYSimbolos);
 
             // Asignar eventos para los campos que solo aceptan números
             document.getElementById('codigo').addEventListener('input', soloNumeros);
@@ -194,11 +231,9 @@
                     if (response.trim() === '0') {
                         alert('No se encontraron registros.');
                     } else {
-                        // Inserta las filas devueltas en la tabla
-                        tablaBody.innerHTML += response; // Añade las filas a la tabla
+                        tablaBody.innerHTML += response; 
                         alert('Registros agregados correctamente.');
 
-                        // Limpia los campos del formulario
                         document.getElementById('codigo').value = '';
                         document.getElementById('descripcion').value = '';
                         document.getElementById('proveedor').value = '';
@@ -216,6 +251,43 @@
         });
     }
 });
+                
+                let btnbuscar = document.querySelector('#botoncodigo');
+                btnbuscar.addEventListener('click', () =>{
+
+                    let codigo1 = document.getElementById('codigo').value;
+
+                    parametrobuscar ={
+                        "codigo": codigo1
+                    }
+                    $.ajax({
+                    data: parametrobuscar,
+                    type: 'POST',
+                    url: 'ajax/insert.php',
+                    success: function(mensaje_mostrar) {
+                        console.log(mensaje_mostrar);
+                    const respuesta = JSON.parse(mensaje_mostrar);
+
+                    if (respuesta.cantidad !== null) {
+                        document.getElementById('precio').value = respuesta.cantidad;
+                        document.getElementById('departamento').value = respuesta.iddepartamento;
+                        document.getElementById('proveedor').value = respuesta.idproveedor;
+                        document.getElementById('descripcion').value = respuesta.descripcion;
+                        document.getElementById('precio').value = respuesta.precio;
+                        document.getElementById('marca').value = respuesta.marca;
+                        document.getElementById('modelo').value = respuesta.modelo;
+                        document.getElementById('placa').value = respuesta.placa;
+                        document.getElementById('serie').value = respuesta.serie;
+
+
+                    } else {
+                        alert('No se encontró la cantidad para el producto.');
+                    }
+                    }         
+                });
+                });
+
+
 
                 let btn = document.querySelector('#btn1');
                  btn1.addEventListener('click', () =>{
@@ -225,21 +297,28 @@
                 let proveedor = document.getElementById('proveedor').value;
                 let departamento = document.getElementById('departamento').value;
                 let precio = document.getElementById('precio').value;
+                let marca = document.getElementById('marca').value;
+                let modelo = document.getElementById('modelo').value;
                 let placa = document.getElementById('placa').value;
                 let serie = document.getElementById('serie').value;
                
-                if (!codigo || !descripcion || !proveedor || !departamento || !precio || !serie || !placa) {
-                    alert("Por favor, complete todos los campos requeridos.");
+                if (!codigo || !descripcion || !proveedor || !departamento || !precio || !serie || !placa || !fecha) {
+                    Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Llene todos los campos",
+                    });                 
                     return;
                 }
+               
                
                 parametro ={
                     "codigo": codigo,
                     "descripcion": descripcion,
                     "proveedor":  proveedor,
                     "fecha":  fecha,
-                    "placa":  placa,
-                    "serie":  serie,
+                    "marca":  marca,
+                    "modelo":  modelo,
                     "precio":  precio,
                     "departamento": departamento
                 }
@@ -250,22 +329,42 @@
                     url: 'ajax/insert.php',
 
                     success: function(mensaje_mostrar){
-                        console.log(mensaje_mostrar);
-                        if(mensaje_mostrar.trim()==='1'){
-                            alert('Todo bien');
+                        if(mensaje_mostrar.success){
+                            Swal.fire({
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                            });
                             document.getElementById('codigo').value = '';
                             document.getElementById('descripcion').value = '';
                             document.getElementById('proveedor').value = '';
                             document.getElementById('departamento').value = '';
                             document.getElementById('precio').value = '';
-                        }else{
-                            alert('Error');
+                            document.getElementById('marca').value = '';
+                            document.getElementById('modelo').value = '';
+                            document.getElementById('placa').value = '';
+                            document.getElementById('serie').value = '';
+
+                            }else{
+                                Swal.fire({
+                                icon: "success",
+                                title: "Datos guardados",
+                                showConfirmButton: false,
+                                timer: 1500
+                                });
                             document.getElementById('codigo').value = '';
+                            document.getElementById('descripcion').value = '';
+                            document.getElementById('proveedor').value = '';
+                            document.getElementById('departamento').value = '';
+                            document.getElementById('precio').value = '';
+                            document.getElementById('marca').value = '';
+                            document.getElementById('modelo').value = '';
+                            document.getElementById('placa').value = '';
+                            document.getElementById('serie').value = '';
                             document.getElementById('fecha').value = '';
-                            document.getElementById('descripcion').value = '';
-                            document.getElementById('proveedor').value = '';
-                            document.getElementById('departamento').value = '';
-                            document.getElementById('precio').value = '';
+                            
+                         
                         }
                     }
                 });
