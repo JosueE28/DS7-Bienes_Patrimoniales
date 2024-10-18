@@ -94,6 +94,7 @@
         $marca = $_POST['marca'];
         $modelo = $_POST['modelo'];
         $precio = $_POST['precio'];
+        $depreciacion = $_POST['depreciacion'];
         $contrnd2 = 0;
 
         $departamento1=null;
@@ -121,8 +122,8 @@
             }
         }
 
-        $sql = "INSERT INTO bienes_patrimoniales (Codigo_Producto, Proveedor_ID, Departamento_ID, Descripcion, Serie, Placa, Marca, Modelo, fecha) 
-        VALUES ('$codigo', '$proveedor', '$iddepartamento', '$descripcion', '$serie1', '$placa1', '$marca', '$modelo', '$fecha')";
+        $sql = "INSERT INTO bienes_patrimoniales (Codigo_Producto, Proveedor_ID, Departamento_ID, Depreciacion, Descripcion, Serie, Placa, Marca, Modelo, fecha) 
+        VALUES ('$codigo', '$proveedor', '$iddepartamento', '$depreciacion', '$descripcion', '$serie1', '$placa1', '$marca', '$modelo', '$fecha')";
 
         
 

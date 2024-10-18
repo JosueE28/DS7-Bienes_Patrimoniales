@@ -104,7 +104,7 @@
 
                 <div class="row">
                     <!-- Proveedor -->
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="proveedor" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Proveedor</label>
                         <select class="form-control" id="proveedor" name="proveedor">
             
@@ -122,10 +122,8 @@
                         ?>
                         </select>
                     </div>
-
-                    <!-- Departamento -->
-                    <div class="col-md-6 mb-3">
-                        <label for="departamento" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Departamento</label>
+                    <div class="col-md-4 mb-3">
+                        <label for="depreciacion" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Departamento</label>
                         <select class="form-control" id="departamento" name="departamento">
             
                             <?php include 'conexion.php';
@@ -140,6 +138,15 @@
                                 }
                             
                             ?>
+                        </select>
+                    </div>
+                    <!-- Departamento -->
+                    <div class="col-md-4 mb-3">
+                        <label for="" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Metodo de depreciación</label>
+                        <select class="form-control" id="depreciacion" name="depreciacion">
+                                <option value="1">Línea Recta</option>
+                                <option value="2">Unidades Producidas</option>
+                                <option value="3">Suma de los dígitos de los años</option>
                         </select>
                     </div>
                 </div>
@@ -296,6 +303,7 @@
                 let fecha = document.getElementById('fecha').value;
                 let proveedor = document.getElementById('proveedor').value;
                 let departamento = document.getElementById('departamento').value;
+                let depreciacion = document.getElementById('depreciacion').value;
                 let precio = document.getElementById('precio').value;
                 let marca = document.getElementById('marca').value;
                 let modelo = document.getElementById('modelo').value;
@@ -311,7 +319,18 @@
                     return;
                 }
                
-               
+                
+                let vidaUtil = 5; 
+                let valorSalvamento = 100; 
+                let depreciacionAnual = 0;
+                if (precio && depreciacion==1) {
+                    depreciacionAnual = (precio - valorSalvamento) / vidaUtil;
+                    if(depreciacionAnual <0){
+                        depreciacionAnual=0;
+                    }
+                    
+                }   
+                    console.log(depreciacionAnual);
                 parametro ={
                     "codigo": codigo,
                     "descripcion": descripcion,
@@ -320,9 +339,10 @@
                     "marca":  marca,
                     "modelo":  modelo,
                     "precio":  precio,
-                    "departamento": departamento
+                    "departamento": departamento,
+                    "depreciacion": depreciacionAnual
                 }
-
+                
                 $.ajax({
                     data: parametro,
                     type: 'POST',
@@ -364,11 +384,15 @@
                             document.getElementById('serie').value = '';
                             document.getElementById('fecha').value = '';
                             
+
                          
                         }
                     }
+
+                
                 });
             });
+        
         
     </script>
 
