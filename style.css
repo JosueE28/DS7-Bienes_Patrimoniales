@@ -1,18 +1,18 @@
 body{
-    min-height: 150vh;
-    max-height: auto;
+    height: 118vh;
     background-color:  rgb(218, 218, 218);
    
 }
 
 .depre{
-    min-height: 130vh;
-    width: 120vh;
+    height: 102vh;
+    width: 100vh;
     padding: 5px;
     background-color: rgb(255, 255, 255);
     padding: 20px;
     border-radius: 6px;
     overflow-y:visible;
+    position: relative;
 }
 
 
@@ -22,6 +22,11 @@ body{
 
 .btn{
     background-color: #1d75e9;
+  
+}
+.btn1{
+    background-color: #1d75e9;
+    transform: translateY(-20px)
 }
 .btn:hover{
     background-color: #03316d;
@@ -46,4 +51,36 @@ table thead {
     position: absolute;
     left: 0;
     
+}
+
+.btnpg1{
+    position: absolute;
+    right: 150px;
+    bottom: -119px;
+    background-color: rgb(49, 146, 49);
+    display: flex;
+    align-items: center;
+
+
+}
+
+.btnpg1:hover{
+    background-color: rgb(38, 110, 38);
+
+
+}
+img{
+    width: 15px;
+    height: 20px;
+
+  }
+
+  span{
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  a{
+    text-decoration:none;
+
 }

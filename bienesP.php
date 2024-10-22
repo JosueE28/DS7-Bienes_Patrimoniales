@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
@@ -90,15 +92,20 @@
 
                 <div class="row">
                     <!-- Código -->
-                    <div class="col-md-6 mb-3">
-                        <label for="codigo" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Modelo</label>
+                    <div class="col-md-4 mb-3">
+                        <label for="marca" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Modelo</label>
                         <input type="text" class="form-control" id="modelo" name="modelo">
                     </div>
 
                     <!-- Fecha -->
-                    <div class="col-md-6 mb-3">
-                        <label for="fecha" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Marca</label>
+                    <div class="col-md-4 mb-3">
+                        <label for="proveedor" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Marca</label>
                         <input type="text" class="form-control" id="marca" name="marca">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Stock</label>
+                        <input type="text" class="form-control" id="stock" name="stock">
                     </div>
                 </div>
 
@@ -151,37 +158,35 @@
                     </div>
                 </div>
 
-                <!-- Botones -->
                 <div class="row">
-                    <div class="text-center mt-4">
-                        <button type="button" class="btn" id="btn1" style=" color: #fff; font-family: 'Roboto', sans-serif;">Guardar</button>
-                        <button type="button" class="btn" id="btn2" style=" color: #fff; font-family: 'Roboto', sans-serif;">Consultar</button>
+                    <!-- Descripción -->
+                    <div class="col-md-4 mb-3">
+                        <label for="totalUnidades" class="form-label"  id="depreciacionvalorlabel" style="font-family: 'Roboto', sans-serif; font-weight: bold; visibility: hidden;">Depreciacion</label>
+                        <input type="text" class="form-control" id="depreciacionvalor" style="visibility: hidden;" name="depreciacionvalor">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="unidadesProducidas" class="form-label unidadesproducidaslabel1" style="font-family: 'Roboto', sans-serif; font-weight: bold;  display: none">total Unidades</label>
+                        <input type="text" class="form-control unidadesproducidasinput1" id="totalUnidades" style="display: none;" name="totalUnidades">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="" class="form-label unidadesproducidaslabel2" style="font-family: 'Roboto', sans-serif; font-weight: bold;  display: none;">unidades Producidas</label>
+                        <input type="text" class="form-control unidadesproducidasinput2" style="display: none;" id="unidadesProducidas" name="unidadesProducidas">
                     </div>
                 </div>
 
-                <!-- Tabla -->
-                <table class="table mt-5">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Fecha de Compra</th>
-                            <th>Descripción</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Serie</th>
-                            <th>Placa</th>
-                            <th>Proveedor</th>
-                            <th>Departamento</th>
-                        </tr>
-                    </thead> 
-                    <tbody>
-                        <tr>
-                            
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- Botones -->
+                <div class="row">
+                    <div class="text-center mt-4">
+                        <button type="button" class="btn btn1" id="btn1" style=" color: #fff; font-family: 'Roboto', sans-serif;">Guardar</button>
+                        <button type="button" class="btn  btn1" id="btn2" style=" color: #fff; font-family: 'Roboto', sans-serif;">Consultar</button>
+                    </div>
+                </div> 
             </div>
+            <a href="mostrar.php"><button type="button" class="btn btnpg1" id="btnpg1" style=" color: #fff; font-family: 'Roboto', sans-serif;"><span>Tabla</span> <img src="images/chevron-right-solid.svg"></button></a>
         </form>
+
     </div>
 
     <!-- Bootstrap JS -->
@@ -189,7 +194,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        // Solo permitir letras y símbolos
         function soloLetrasYSimbolos(e) {
             e.target.value = e.target.value
                 .split('')
@@ -197,18 +201,15 @@
                 .join('');
         }
 
-        // Solo permitir números
         function soloNumeros(e) {
             const regex = /^[0-9]+$/;
             e.target.value = e.target.value.replace(/[^0-9]+/g, '');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Asignar eventos para los campos que solo aceptan letras y símbolos especiales
             document.getElementById('descripcion').addEventListener('input', soloLetrasYSimbolos);
             document.getElementById('proveedor').addEventListener('input', soloLetrasYSimbolos);
 
-            // Asignar eventos para los campos que solo aceptan números
             document.getElementById('codigo').addEventListener('input', soloNumeros);
             document.getElementById('precio').addEventListener('input', soloNumeros);
         });
@@ -258,140 +259,176 @@
         });
     }
 });
-                
-                let btnbuscar = document.querySelector('#botoncodigo');
-                btnbuscar.addEventListener('click', () =>{
 
-                    let codigo1 = document.getElementById('codigo').value;
+let iddepreciacionselect = document.getElementById('depreciacion');
 
-                    parametrobuscar ={
-                        "codigo": codigo1
-                    }
-                    $.ajax({
-                    data: parametrobuscar,
-                    type: 'POST',
-                    url: 'ajax/insert.php',
-                    success: function(mensaje_mostrar) {
-                        console.log(mensaje_mostrar);
-                    const respuesta = JSON.parse(mensaje_mostrar);
+iddepreciacionselect.addEventListener('change', ()=>{
+    let iddepreciacion1 = document.getElementById('depreciacion').value;
+    let unidadesproducidaslabel1 = document.querySelector('.unidadesproducidaslabel1');
+    let unidadesproducidasinput1 = document.querySelector('.unidadesproducidasinput1');
+    let unidadesproducidaslabel2 = document.querySelector('.unidadesproducidaslabel2');
+    let unidadesproducidasinput2 = document.querySelector('.unidadesproducidasinput2');
+   
 
-                    if (respuesta.cantidad !== null) {
-                        document.getElementById('precio').value = respuesta.cantidad;
-                        document.getElementById('departamento').value = respuesta.iddepartamento;
-                        document.getElementById('proveedor').value = respuesta.idproveedor;
-                        document.getElementById('descripcion').value = respuesta.descripcion;
-                        document.getElementById('precio').value = respuesta.precio;
-                        document.getElementById('marca').value = respuesta.marca;
-                        document.getElementById('modelo').value = respuesta.modelo;
-                        document.getElementById('placa').value = respuesta.placa;
-                        document.getElementById('serie').value = respuesta.serie;
-
-
-                    } else {
-                        alert('No se encontró la cantidad para el producto.');
-                    }
-                    }         
-                });
-                });
+    if(iddepreciacion1==2){
+        
+        unidadesproducidaslabel1.style.display='block';
+        unidadesproducidasinput1.style.display='block';
+        unidadesproducidaslabel2.style.display='block';
+        unidadesproducidasinput2.style.display='block';
+        
+    }else{
+        
+        unidadesproducidaslabel1.style.display='none';
+        unidadesproducidasinput1.style.display='none';
+        unidadesproducidaslabel2.style.display='none';
+        unidadesproducidasinput2.style.display='none';
+    }
+});
 
 
 
-                let btn = document.querySelector('#btn1');
-                 btn1.addEventListener('click', () =>{
-                let codigo = document.getElementById('codigo').value;
-                let descripcion = document.getElementById('descripcion').value;
-                let fecha = document.getElementById('fecha').value;
-                let proveedor = document.getElementById('proveedor').value;
-                let departamento = document.getElementById('departamento').value;
-                let depreciacion = document.getElementById('depreciacion').value;
-                let precio = document.getElementById('precio').value;
-                let marca = document.getElementById('marca').value;
-                let modelo = document.getElementById('modelo').value;
-                let placa = document.getElementById('placa').value;
-                let serie = document.getElementById('serie').value;
-               
-                if (!codigo || !descripcion || !proveedor || !departamento || !precio || !serie || !placa || !fecha) {
+let depreciacionanual = 0;
+
+let btnbuscar = document.querySelector('#botoncodigo');
+btnbuscar.addEventListener('click', () => {
+    let codigo1 = document.getElementById('codigo').value;
+    let iddepreciacion = document.getElementById('depreciacion').value;
+
+    let parametrobuscar = {
+        "codigo": codigo1,
+        "iddepreciacion": iddepreciacion
+
+    };
+
+    $.ajax({
+        data: parametrobuscar,
+        type: 'POST',
+        url: 'ajax/insert.php',
+        success: function(mensaje_mostrar) {
+            console.log(mensaje_mostrar);
+            const respuesta = JSON.parse(mensaje_mostrar);
+
+            if (respuesta.cantidad !== null) {
+                document.getElementById('departamento').value = respuesta.iddepartamento;
+                document.getElementById('proveedor').value = respuesta.idproveedor;
+                document.getElementById('descripcion').value = respuesta.descripcion;
+                document.getElementById('precio').value = respuesta.precio;
+                document.getElementById('marca').value = respuesta.marca;
+                document.getElementById('modelo').value = respuesta.modelo;
+                document.getElementById('stock').value = respuesta.cantidad;
+                document.getElementById('placa').value = respuesta.placa;
+                document.getElementById('depreciacionvalor').value = respuesta.depreciacionanual;
+                document.getElementById('serie').value = respuesta.serie;
+                depreciacionanual = respuesta.depreciacionanual; 
                     Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Llene todos los campos",
-                    });                 
-                    return;
-                }
-               
-                
-                let vidaUtil = 5; 
-                let valorSalvamento = 100; 
-                let depreciacionAnual = 0;
-                if (precio && depreciacion==1) {
-                    depreciacionAnual = (precio - valorSalvamento) / vidaUtil;
-                    if(depreciacionAnual <0){
-                        depreciacionAnual=0;
-                    }
-                    
-                }   
-                    console.log(depreciacionAnual);
-                parametro ={
-                    "codigo": codigo,
-                    "descripcion": descripcion,
-                    "proveedor":  proveedor,
-                    "fecha":  fecha,
-                    "marca":  marca,
-                    "modelo":  modelo,
-                    "precio":  precio,
-                    "departamento": departamento,
-                    "depreciacion": depreciacionAnual
-                }
-                
-                $.ajax({
-                    data: parametro,
-                    type: 'POST',
-                    url: 'ajax/insert.php',
+                    icon: "info",
+                    title: "Ya casi",
+                    text: "Ahora, solo ingresa la fecha y escoge el metodo de depreciacion"
+                    });
 
-                    success: function(mensaje_mostrar){
-                        if(mensaje_mostrar.success){
-                            Swal.fire({
-                            icon: "success",
-                            title: "Your work has been saved",
-                            showConfirmButton: false,
-                            timer: 1500
-                            });
-                            document.getElementById('codigo').value = '';
-                            document.getElementById('descripcion').value = '';
-                            document.getElementById('proveedor').value = '';
-                            document.getElementById('departamento').value = '';
-                            document.getElementById('precio').value = '';
-                            document.getElementById('marca').value = '';
-                            document.getElementById('modelo').value = '';
-                            document.getElementById('placa').value = '';
-                            document.getElementById('serie').value = '';
+            } else {
+                alert('No se encontró la cantidad para el producto.');
+            }
+        }         
+    });
+});
 
-                            }else{
-                                Swal.fire({
-                                icon: "success",
-                                title: "Datos guardados",
-                                showConfirmButton: false,
-                                timer: 1500
-                                });
-                            document.getElementById('codigo').value = '';
-                            document.getElementById('descripcion').value = '';
-                            document.getElementById('proveedor').value = '';
-                            document.getElementById('departamento').value = '';
-                            document.getElementById('precio').value = '';
-                            document.getElementById('marca').value = '';
-                            document.getElementById('modelo').value = '';
-                            document.getElementById('placa').value = '';
-                            document.getElementById('serie').value = '';
-                            document.getElementById('fecha').value = '';
-                            
+let btn1 = document.querySelector('#btn1');
+btn1.addEventListener('click', () => {
+    let codigo = document.getElementById('codigo').value;
+    let descripcion = document.getElementById('descripcion').value;
+    let fecha = document.getElementById('fecha').value;
+    let proveedor = document.getElementById('proveedor').value;
+    let departamento = document.getElementById('departamento').value;
+    let precio = document.getElementById('precio').value;
+    let marca = document.getElementById('marca').value;
+    let cantidad = document.getElementById('stock').value;
+    let modelo = document.getElementById('modelo').value;
+    let placa = document.getElementById('placa').value;
+    let serie = document.getElementById('serie').value;
+    let depreciacion = document.getElementById('depreciacionvalor').value;
+    let iddepreciacion = document.getElementById('depreciacion').value;
+    let total_unidades = document.getElementById('totalUnidades').value;
+    let unidades_producidas = document.getElementById('unidadesProducidas').value;
 
-                         
-                        }
-                    }
+    if (!codigo || !descripcion || !proveedor || !departamento || !precio || !serie || !placa || !fecha) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Llene todos los campos",
+        });                 
+        return;
+    }
 
-                
+    parametro = {
+        "codigo": codigo,
+        "descripcion": descripcion,
+        "proveedor": proveedor,
+        "fecha": fecha,
+        "marca": marca,
+        "modelo": modelo,
+        "precio": precio,
+        "serie": serie,
+        "placa": placa,
+        "departamento": departamento,
+        "depreciacion": depreciacion, 
+        "iddepreciacion": iddepreciacion,
+        "unidades_producidas": unidades_producidas,
+        "total_unidades":total_unidades
+    };
+
+    $.ajax({
+        data: parametro,
+        type: 'POST',
+        url: 'ajax/insert.php',
+        success: function(mensaje_mostrar) {
+            if (mensaje_mostrar.success) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Your work has been saved",
+                    showConfirmButton: false,
+                    timer: 1500
                 });
-            });
+                document.getElementById('codigo').value = '';
+                document.getElementById('descripcion').value = '';
+                document.getElementById('proveedor').value = '';
+                document.getElementById('departamento').value = '';
+                document.getElementById('precio').value = '';
+                document.getElementById('marca').value = '';
+                document.getElementById('modelo').value = '';
+                document.getElementById('placa').value = '';
+                document.getElementById('serie').value = '';
+                document.getElementById('fecha').value = '';
+                document.getElementById('depreciacion').value = '';
+                document.getElementById('stock').value = '';
+
+
+            } else {
+                Swal.fire({
+                    icon: "success",
+                    title: "Datos guardados",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                document.getElementById('codigo').value = '';
+                document.getElementById('descripcion').value = '';
+                document.getElementById('proveedor').value = '';
+                document.getElementById('departamento').value = '';
+                document.getElementById('precio').value = '';
+                document.getElementById('marca').value = '';
+                document.getElementById('modelo').value = '';
+                document.getElementById('placa').value = '';
+                document.getElementById('serie').value = '';
+                document.getElementById('fecha').value = '';
+                document.getElementById('depreciacion').value = '';
+                document.getElementById('stock').value = '';
+
+            }
+        }
+    });
+});
+
         
         
     </script>
