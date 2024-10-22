@@ -94,14 +94,18 @@
         }
 
 
+        .btn2{
+background-color: blue;        }
+
+
         .boton2{
-            transform: translateY(-76px) !important;
+            transform: translateY(-40px) !important;
         }
         #btn2l{
             
             background-color: rgb(49, 146, 49);
 
-            transform: translateX(-400px);
+            transform: translateX(-600px);
             display: flex;
              align-items: center;
              
@@ -156,7 +160,7 @@
    
 
         <div class="container1 col-md-4 mb-3">
-        <form action="" method="POST" class="mt-4">
+        <form action="mostrar.php" method="POST" class="mt-4">
                 <label for="depreciacion" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Departamento</label>
                 <select class="form-control" id="departamento" name="departamento">
 
@@ -177,10 +181,11 @@
                 <div class="boton">
                 <button type="button" class="btn  btn1" id="btn2" style=" color: #fff; font-family: 'Roboto', sans-serif;">Desplegar</button>
                 </div>  
-                <div class="boton2">
+                
+            </div>
+            <div class="boton2">
                     <a href="bienesP.php"><button type="button" class="btn  btn2" id="btn2l" style=" color: #fff; font-family: 'Roboto', sans-serif;"><img src="images/chevron-left-solid.svg"><span>Registro</span></button></a>
                 </div> 
-            </div>
             </form>
                 
         <div class="container containertable ">
