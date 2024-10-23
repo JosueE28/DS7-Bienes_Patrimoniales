@@ -46,12 +46,12 @@ CREATE TABLE `bienes_patrimoniales` (
 --
 
 INSERT INTO `bienes_patrimoniales` (`ID_Bien`, `Codigo_Producto`, `Proveedor_ID`, `Departamento_ID`, `Depreciacion`, `Descripcion`, `Serie`, `Placa`, `Marca`, `Modelo`, `fecha`) VALUES
-(3, NULL, NULL, NULL, NULL, 'Producto A - Descripción', 'SER12345', 'PLACA123', NULL, NULL, '2024-10-18 00:00:00'),
-(4, NULL, NULL, NULL, NULL, 'Producto B - Descripción', 'SER54321', 'PLACA543', NULL, NULL, '2024-10-18 00:00:00'),
-(17, 4, 2, 4, 100.00, 'Descripción del producto 4', '12767', 'Bie65414', 'Marca B', 'Modelo Y', '0022-02-22 00:00:00'),
-(65, 4, 2, 4, 100.00, 'Descripción del producto 4', '28212', 'Bie19319', 'Marca B', 'Modelo Y', '0044-04-04 00:00:00'),
+(3, NULL, NULL, NULL, NULL, 'Producto A - Descripción', '212345', 'PLACA123', NULL, NULL, '2024-10-18 00:00:00'),
+(4, NULL, NULL, NULL, NULL, 'Producto B - Descripción', '354321', 'PLACA543', NULL, NULL, '2024-10-18 00:00:00'),
+(17, 4, 2, 4, 100.00, 'Descripción del producto 4', '12767', '465414', 'Marca B', 'Modelo Y', '0022-02-22 00:00:00'),
+(65, 4, 2, 4, 100.00, 'Descripción del producto 4', '28212', '519319', 'Marca B', 'Modelo Y', '0044-04-04 00:00:00'),
 (100, 2, 1, 1, 564.29, 'Laptop Dell de 15 pulgadas, 8GB RAM, 256GB SSD', '27892', 'Tec17285', 'Dell', 'Inspiron 15', '0003-02-04 00:00:00'),
-(1244, 4, 2, 4, 100.00, 'Descripción del producto 4', '38314', 'Bie43833', 'Marca B', 'Modelo Y', '0022-12-22 00:00:00'),
+(1244, 4, 2, 4, 100.00, 'Descripción del producto 4', '38314', '543833', 'Marca B', 'Modelo Y', '0022-12-22 00:00:00'),
 (1251, 4, 2, 4, 100.00, 'Descripción del producto 4', '67809', '442792', 'Marca B', 'Modelo Y', '2024-10-19 00:00:00'),
 (1252, 4, 2, 4, 100.00, 'Descripción del producto 4', '87666', '438023', 'Marca B', 'Modelo Y', '2024-10-19 00:00:00'),
 (1253, 4, 2, 4, 100.00, 'Descripción del producto 4', '13901', '449695', 'Marca B', 'Modelo Y', '2024-10-19 00:00:00'),

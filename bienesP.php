@@ -151,9 +151,18 @@
                     <div class="col-md-4 mb-3">
                         <label for="" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Metodo de depreciación</label>
                         <select class="form-control" id="depreciacion" name="depreciacion">
-                                <option value="1">Línea Recta</option>
-                                <option value="2">Unidades Producidas</option>
-                                <option value="3">Suma de los dígitos de los años</option>
+                            <?php include 'conexion.php';
+                                $sqlselectdep = "SELECT * FROM depreciacion";
+                                $sql_query_dep_select = mysqli_query($est, $sqlselectdep);
+
+                                while($row=mysqli_fetch_assoc($sql_query_dep_select)){
+                                    $iddep = $row['ID'];
+                                    $depname = $row['Nombre'];
+                                    echo"<option value='$iddep'>$depname</option>";
+
+                                }
+                            
+                            ?>
                         </select>
                     </div>
                 </div>
@@ -180,7 +189,6 @@
                 <div class="row">
                     <div class="text-center mt-4">
                         <button type="button" class="btn btn1" id="btn1" style=" color: #fff; font-family: 'Roboto', sans-serif;">Guardar</button>
-                        <button type="button" class="btn  btn1" id="btn2" style=" color: #fff; font-family: 'Roboto', sans-serif;">Consultar</button>
                     </div>
                 </div> 
             </div>
