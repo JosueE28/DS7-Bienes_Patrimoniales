@@ -2,18 +2,18 @@
     include '../conexion.php';  
 
    
-
-
     $codigo = $_POST['codigo'];
 
-    $cantidad = null;
+    $cantidad= $_POST['cantidad'];
     $idproveedor = null;
     $iddepartamento = null;
     
     $sql = "SELECT * FROM compra_productos where Codigo_Producto = '$codigo'";
     $sql_query = mysqli_query($est, $sql);
     while($row = mysqli_fetch_assoc($sql_query)){
+        if($cantidad==null){
         $cantidad = $row['Cantidad_Producto'];
+        }
         $idproveedor = $row['Proveedor_ID'];
         $iddepartamento = $row['Departamento_ID'];
     }
@@ -119,6 +119,7 @@
         $iddepartamento = $_POST['departamento'];
         $proveedor = $_POST['proveedor'];
         $precio = $_POST['precio'];
+        $cantidad= $_POST['cantidad'];
 
         $marca = $_POST['marca'];
         $modelo = $_POST['modelo'];
@@ -207,11 +208,29 @@
                     
                 }
             }
+            while($i<$cantidad){
+                $i++;
+            $initialsplaca =  substr($iddepartamento, 0, 3);
+            $contrnd2=0;
+            while($contrnd2 < 1){
+                $random = rand(10000, 99999);
+                $serie1 = rand(10000, 99999);
+                $placa1 = $initialsplaca.$random;
+        
+                $sql_placa_serie= "SELECT * FROM bienes_patrimoniales";
+                $sql_queryps = mysqli_query($est, $sql_placa_serie);
+        
+                while($row_ps = mysqli_fetch_assoc($sql_queryps)){
+                    if($placa1 == $row_ps['Placa'] && $serie1 == $row_sps['Serie']){
+                        
+                    }else{
+                        $contrnd2+=1;
+                    }
+                }
+            }
             
-            
-
-            
-            
+        
+    
             $sql_update = "UPDATE bienes_patrimoniales SET  
                 Depreciacion = '$precio'
             WHERE Codigo_Producto = '$codigo'";
@@ -225,13 +244,17 @@
                 $sql_insert = "INSERT INTO bienes_patrimoniales (Codigo_Producto, Proveedor_ID, Departamento_ID, Depreciacion, Descripcion, Serie, Placa, Marca, Modelo, fecha) 
                 VALUES ('$codigo', '$proveedor', '$iddepartamento', '$precio', '$descripcion', '$serie1', '$placa1', '$marca', '$modelo', '$fecha')";
                 mysqli_query($est, $sql_insert);
+                   
             } else {
-                echo json_encode(['success' => true]);
-            }
+                echo json_encode(['success' => true],
+                ['cantidad' => $cantidad]);
+                        }       
+                     }     
             
             if (mysqli_query($est, $sql)) {
-                echo json_encode(['success' => true]);
-            } else {
+                echo json_encode(['success' => true],
+                ['cantidad' => $cantidad]);
+                        } else {
                 echo "Error al insertar datos: " . mysqli_error($est);  
             }
         

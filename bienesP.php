@@ -102,7 +102,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Stock</label>
-                        <input type="text" readonly class="form-control" id="stock" name="stock">
+                        <input type="text"  class="form-control" id="stock" name="stock">
                     </div>
                 </div>
 
@@ -212,10 +212,11 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('descripcion').addEventListener('input', soloLetrasYSimbolos);
-            document.getElementById('proveedor').addEventListener('input', soloLetrasYSimbolos);
 
             document.getElementById('codigo').addEventListener('input', soloNumeros);
             document.getElementById('precio').addEventListener('input', soloNumeros);
+            document.getElementById('stock').addEventListener('input', soloNumeros);
+
         });
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -348,6 +349,7 @@ btn1.addEventListener('click', () => {
     let precio = document.getElementById('precio').value;
     let marca = document.getElementById('marca').value;
     let cantidad = document.getElementById('stock').value;
+
     let modelo = document.getElementById('modelo').value;
     let placa = document.getElementById('placa').value;
     let serie = document.getElementById('serie').value;
@@ -375,6 +377,7 @@ btn1.addEventListener('click', () => {
         "precio": precio,
         "serie": serie,
         "placa": placa,
+        "cantidad": cantidad,
         "departamento": departamento,
         "depreciacion": depreciacion, 
         "iddepreciacion": iddepreciacion,
@@ -387,6 +390,8 @@ btn1.addEventListener('click', () => {
         type: 'POST',
         url: 'ajax/insert.php',
         success: function(mensaje_mostrar) {
+            const respuesta2 = JSON.parse(mensaje_mostrar);
+
             if (mensaje_mostrar.success) {
                 Swal.fire({
                     icon: "success",
@@ -405,13 +410,18 @@ btn1.addEventListener('click', () => {
                 document.getElementById('serie').value = '';
                 document.getElementById('fecha').value = '';
                 document.getElementById('depreciacion').value = '';
-                document.getElementById('stock').value = '';
+                
+                if(mensaje_mostrar.cantidad){
+                    document.getElementById('stock').value = respuesta2.cantidad;
+
+                }
+                
 
 
             } else {
                 Swal.fire({
                     icon: "success",
-                    title: "Datos guardados",
+                    title: "Your work has been saved",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -426,9 +436,15 @@ btn1.addEventListener('click', () => {
                 document.getElementById('serie').value = '';
                 document.getElementById('fecha').value = '';
                 document.getElementById('depreciacion').value = '';
-                document.getElementById('stock').value = '';
+               
+                if(mensaje_mostrar.cantidad){
+                    document.getElementById('stock').value = respuesta2.cantidad;
+
+                }
+                
 
             }
+        
         }
     });
 });
