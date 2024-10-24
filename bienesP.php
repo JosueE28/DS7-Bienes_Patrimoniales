@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -50,7 +49,7 @@
                     <!-- Código -->
                     <div class="col-md-4 mb-3">
                         <label for="codigo" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Código</label>
-                        <input type="text" class="form-control" id="codigo" name="codigo">
+                        <input type="text" class="form-control" id="codigo" name="codigo" >
                     </div>
                     <div class="col-md-2 mb-3 codigobtn">
                         <button type="button" class="btn" id="botoncodigo" style=" color: #fff; font-family: 'Roboto', sans-serif;">buscar</button>
@@ -66,7 +65,7 @@
                     <!-- Descripción -->
                     <div class="col-md-12 mb-3">
                         <label for="descripcion" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Descripción</label>
-                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                        <textarea readonly class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
                     </div>
                 </div>
 
@@ -74,43 +73,40 @@
                     <!-- Precio -->
                     <div class="col-md-4 mb-3 custom-gap">
                         <label for="precio" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Precio</label>
-                        <input type="number" class="form-control" id="precio" name="precio">
+                        <input type="number"  readonly class="form-control" id="precio" name="precio">
                     </div>
 
                     <!-- Serie -->
                     <div class="col-md-4 mb-3 custom-gap">
                         <label for="serie" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Serie</label>
-                        <input type="text" class="form-control" id="serie" name="serie">
+                        <input type="text" readonly class="form-control" id="serie" name="serie">
                     </div>
 
                     <!-- Placa -->
                     <div class="col-md-4 mb-3 custom-gap">
                         <label for="placa" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Placa</label>
-                        <input type="text" class="form-control" id="placa" name="placa">
+                        <input type="text" readonly class="form-control" id="placa" name="placa">
                     </div>
                 </div>
 
                 <div class="row">
-                    <!-- Código -->
                     <div class="col-md-4 mb-3">
                         <label for="marca" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Modelo</label>
-                        <input type="text" class="form-control" id="modelo" name="modelo">
+                        <input type="text" readonly class="form-control" id="modelo" name="modelo">
                     </div>
 
-                    <!-- Fecha -->
                     <div class="col-md-4 mb-3">
                         <label for="proveedor" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Marca</label>
-                        <input type="text" class="form-control" id="marca" name="marca">
+                        <input type="text" readonly class="form-control" id="marca" name="marca">
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Stock</label>
-                        <input type="text" class="form-control" id="stock" name="stock">
+                        <input type="text" readonly class="form-control" id="stock" name="stock">
                     </div>
                 </div>
 
                 <div class="row">
-                    <!-- Proveedor -->
                     <div class="col-md-4 mb-3">
                         <label for="proveedor" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Proveedor</label>
                         <select class="form-control" id="proveedor" name="proveedor">
@@ -147,9 +143,18 @@
                             ?>
                         </select>
                     </div>
-                    <!-- Departamento -->
+
                     <div class="col-md-4 mb-3">
-                        <label for="" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Metodo de depreciación</label>
+                        <label for="totalUnidades" class="form-label"  id="depreciacionvalorlabel" style="font-family: 'Roboto', sans-serif; font-weight: bold; ">Depreciacion</label>
+                        <input type="text" readonly class="form-control" id="depreciacionvalor" name="depreciacionvalor">
+                    </div>
+                       
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+
+                    <label for="" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Metodo de depreciación</label>
                         <select class="form-control" id="depreciacion" name="depreciacion">
                             <?php include 'conexion.php';
                                 $sqlselectdep = "SELECT * FROM depreciacion";
@@ -165,15 +170,6 @@
                             ?>
                         </select>
                     </div>
-                </div>
-
-                <div class="row">
-                    <!-- Descripción -->
-                    <div class="col-md-4 mb-3">
-                        <label for="totalUnidades" class="form-label"  id="depreciacionvalorlabel" style="font-family: 'Roboto', sans-serif; font-weight: bold; visibility: hidden;">Depreciacion</label>
-                        <input type="text" class="form-control" id="depreciacionvalor" style="visibility: hidden;" name="depreciacionvalor">
-                    </div>
-
                     <div class="col-md-4 mb-3">
                         <label for="unidadesProducidas" class="form-label unidadesproducidaslabel1" style="font-family: 'Roboto', sans-serif; font-weight: bold;  display: none">total Unidades</label>
                         <input type="text" class="form-control unidadesproducidasinput1" id="totalUnidades" style="display: none;" name="totalUnidades">

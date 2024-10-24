@@ -1,9 +1,9 @@
 <?php
 
-$user = 'root';
+$user = 'userdb';
 $host = 'localhost';
 $database = 'proyecto_db';
-$password = '';
+$password = 'passworddb';
 
 $est = mysqli_connect($host, $user,  $password, $database);
 

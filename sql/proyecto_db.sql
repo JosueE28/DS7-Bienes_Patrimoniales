@@ -223,7 +223,20 @@ CREATE TABLE `Solicitudes_Producto` (
 --
 -- Indexes for dumped tables
 --
+CREATE TABLE `depreciacion` (
+  `ID` int(11) DEFAULT NULL,
+  `Nombre` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `depreciacion`
+--
+
+INSERT INTO `depreciacion` (`ID`, `Nombre`) VALUES
+(1, 'Linea Recta'),
+(2, 'Unidades Producidas'),
+(3, 'Suma de los dígitos de los años');
+COMMIT;
 --
 -- Indexes for table `bienes_patrimoniales`
 --

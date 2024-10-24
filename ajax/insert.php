@@ -118,14 +118,14 @@
         $placa = $_POST['placa'];;
         $iddepartamento = $_POST['departamento'];
         $proveedor = $_POST['proveedor'];
+        $precio = $_POST['precio'];
+
         $marca = $_POST['marca'];
         $modelo = $_POST['modelo'];
-        $precio = $_POST['precio'];
         $depreciacion = $_POST['depreciacion'];
         $total_unidades = $_POST['total_unidades'];
         $unidades_producidas = $_POST['unidades_producidas'];
         $contrnd2 = 0;
-        echo $fecha;
         $departamento1=null;
         $sql_depa= "SELECT * FROM departamentos where ID_departamento = '$iddepartamento'";
         $sql_querydepa = mysqli_query($est, $sql_depa);
@@ -139,7 +139,6 @@
         $sql_querydepre2 = mysqli_query($est, $sql_depre2);
         
         if (mysqli_num_rows($sql_querydepre2) > 0) {
-            // Si existe un registro, actualiza los valores
 
             $vidautil = 6;  
             $sumadeanos = 0;  
@@ -147,137 +146,96 @@
             $contt = 0;  
             $iddepreciacion = $_POST['iddepreciacion'];  
             $depreciacionanterior = $depreciacion;  
-            $precioanterior = $precio; 
-            $precio;
-
+            $fecha_registro = $_POST['fecha']; 
+            $dateTime = DateTime::createFromFormat('Y-m-d', $fecha_registro);
+            $anio_registro = (int)$dateTime->format('Y'); 
             
             
-            if ($iddepreciacion == 3) {
-                $unidadsalvamento = 100;
+            $anio_actual = (int)date('Y'); 
+            $anios_transcurridos = intval($anio_actual - $anio_registro);            
+            $vida_util_restante = $vidautil - $anios_transcurridos;
+            if ($vida_util_restante <= 0) {
+                $vida_util_restante = 0; 
+                $precio = 0;
+            } else {
+                if ($iddepreciacion == 3) { 
+                    $unidadsalvamento = 100;
+                    $sumadeanos = ($vidautil * ($vidautil + 1)) / 2; 
+                    $vida_util_actual = $vida_util_restante;
+            
+                        $depreciacionAnual = ($vida_util_actual / $sumadeanos) * ($precio - $unidadsalvamento);
+                        if($depreciacionAnual<0){
+                            $precio += $depreciacionAnual; 
+                            }else{
+                                $precio -= $depreciacionAnual;   
+                            }l;
+            
+                        
+                        if ($precio < 0) {
+                            $precio = 0; 
+                        }
                 
-                for ($i = 0; $i < 6; $i++) {
-                    $sumadeanos += $vidautil;
-                    $vidautil -= 1;
-                }
-                $vidautil = 6;  
             
-                while ($contt < 1) {
-                    $depreciacionAnual = ($vidautil / $sumadeanos) * ($precio - $unidadsalvamento);
-            
-                    $precio -= $depreciacionAnual;
-            
-                    if ($precio < $precioanterior) {
-                        $precioanterior = $precio;
-                        $contt = 1;
-                    } else {
-                        $vidautil -= 1;
-                    }
-            
-                    if ($vidautil <= 0) {
-                        $contt = 1; 
-                    }
-                }
-            }else if ($iddepreciacion == 2) { 
+                } else if ($iddepreciacion == 2) { 
                     $totalUnidades = $_POST['total_unidades']; 
                     $unidadesProducidas = $_POST['unidades_producidas']; 
                     $costoPorUnidad = ($precio - 100) / $totalUnidades;
             
                     $depreciacionAnual = $costoPorUnidad * $unidadesProducidas;
-                    $precio -= $depreciacionAnual;
+                    if($depreciacionAnual<0){
+                        $precio += $depreciacionAnual; 
+                        }else{
+                            $precio -= $depreciacionAnual;   
+                        }
             
                     if ($precio < 0) {
-                        $precio = 0;
-                    }
-                }
-            
-             else if ($iddepreciacion == 1) {
-                while ($contt < 1) {
-                    $depreciacionAnual = ($precio - 100) / $vidautil;
-            
-                    $precio -= $depreciacionAnual;
-            
-                    if ($precio < $precioanterior) {
-                        $precioanterior = $precio;
-                        $contt = 1; 
+                        $precio = 0; 
                     }
             
-                    if ($precio < 0) {
-                        $precio = 0;
-                    }
+                } else if ($iddepreciacion == 1) {
+                        $depreciacionAnual = ($precio - 100) / $vida_util_restante;
+                        if($depreciacionAnual<0){
+                        $precio += $depreciacionAnual; 
+                        }else{
+                            $precio -= $depreciacionAnual;   
+                        }
+                     
+                        if ($precio < 0) {
+                            $precio = 0; 
+                        }
             
-                    $vidautil -= 1;
-            
-                    if ($vidautil <= 0) {
-                        $contt = 1; 
-                    }
-                }
-            }
-            $i = 0;
-            while($i<$cantidad){
-                $i++;
-            $initialsplaca =  substr($iddepartamento, 0, 3);
-            $contrnd2=0;
-            while($contrnd2 < 1){
-                $random = rand(10000, 99999);
-                $serie1 = rand(10000, 99999);
-                $placa1 = $initialsplaca.$random;
-        
-                $sql_placa_serie= "SELECT * FROM bienes_patrimoniales";
-                $sql_queryps = mysqli_query($est, $sql_placa_serie);
-        
-                while($row_ps = mysqli_fetch_assoc($sql_queryps)){
-                    if($placa1 == $row_ps['Placa'] && $serie1 == $row_sps['Serie']){
-                        
-                    }else{
-                        $contrnd2+=1;
-                    }
+                    
                 }
             }
             
-           
-                
-                    while($rowdepre2 = mysqli_fetch_assoc($sql_querydepre2)){
-                        $depreciacion = $rowdepre2['Depreciacion'];
-                        
-                        if ($depreciacion == null) {
-                            $depreciacion = 0;
-                        }
-                
-                            $sql_update = "UPDATE bienes_patrimoniales SET  
-                                Depreciacion = '$precio'
-                            WHERE Codigo_Producto = '$codigo'";
-                            
-                            mysqli_query($est, $sql_update);
-                        }
-
-                        $sql_insert = "INSERT INTO bienes_patrimoniales (Codigo_Producto, Proveedor_ID, Departamento_ID, Depreciacion, Descripcion, Serie, Placa, Marca, Modelo, fecha) 
-                        VALUES ('$codigo', '$proveedor', '$iddepartamento', '$precio', '$descripcion', '$serie1', '$placa1', '$marca', '$modelo', '$fecha')";
             
-            mysqli_query($est, $sql_insert);
 
-                    }
-        } else {
-            // Si no existe el registro, realiza la inserción
+            
+            
+            $sql_update = "UPDATE bienes_patrimoniales SET  
+                Depreciacion = '$precio'
+            WHERE Codigo_Producto = '$codigo'";
+            mysqli_query($est, $sql_update);
+
             $sql_insert = "INSERT INTO bienes_patrimoniales (Codigo_Producto, Proveedor_ID, Departamento_ID, Depreciacion, Descripcion, Serie, Placa, Marca, Modelo, fecha) 
-            VALUES ('$codigo', '$proveedor', '$iddepartamento', '$depreciacionAnual', '$descripcion', '$serie1', '$placa1', '$marca', '$modelo', '$fecha')";
+                VALUES ('$codigo', '$proveedor', '$iddepartamento', '$precio', '$descripcion', '$serie1', '$placa1', '$marca', '$modelo', '$fecha')";
+                mysqli_query($est, $sql_insert);
             
-            mysqli_query($est, $sql_insert);
-        }
-    
-        
-    
-       
-
-        if (mysqli_query($est, $sql)) {
-            echo json_encode(['success' => true]);
+            if (mysqli_num_rows($sql_querydepre2) == 0) {
+                $sql_insert = "INSERT INTO bienes_patrimoniales (Codigo_Producto, Proveedor_ID, Departamento_ID, Depreciacion, Descripcion, Serie, Placa, Marca, Modelo, fecha) 
+                VALUES ('$codigo', '$proveedor', '$iddepartamento', '$precio', '$descripcion', '$serie1', '$placa1', '$marca', '$modelo', '$fecha')";
+                mysqli_query($est, $sql_insert);
+            } else {
+                echo json_encode(['success' => true]);
+            }
             
-        } else {
-            echo "Error al insertar datos: " . mysqli_error($est);  
-        }
-    } else {
+            if (mysqli_query($est, $sql)) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo "Error al insertar datos: " . mysqli_error($est);  
+            }
         
-    }
-    
-
+        }
+    } 
     
 ?>
