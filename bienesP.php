@@ -39,14 +39,13 @@
             </div>
         </div>
     </nav>
-
+    
     <div class="container mt-5"> 
-        <!-- Formulario de Activos Fijos -->
+        
         <form action="ajax/insert.php" method="POST" class="mt-4">
             <div class="container mt-5 depre">
                 <h1 class="text-center titulo" style="font-family: 'Poppins', sans-serif; color: black;">Registro de Activos Fijos</h1>
                 <div class="row">
-                    <!-- Código -->
                     <div class="col-md-4 mb-3">
                         <label for="codigo" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Código</label>
                         <input type="text" class="form-control" id="codigo" name="codigo" >
@@ -92,12 +91,12 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="marca" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Modelo</label>
-                        <input type="text" readonly class="form-control" id="modelo" name="modelo">
+                        <input type="text" class="form-control" id="modelo" name="modelo">
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="proveedor" class="form-label" style="font-family: 'Roboto', sans-serif; font-weight: bold;">Marca</label>
-                        <input type="text" readonly class="form-control" id="marca" name="marca">
+                        <input type="text" class="form-control" id="marca" name="marca">
                     </div>
 
                     <div class="col-md-4 mb-3">
@@ -212,58 +211,14 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('descripcion').addEventListener('input', soloLetrasYSimbolos);
-
             document.getElementById('codigo').addEventListener('input', soloNumeros);
-            document.getElementById('precio').addEventListener('input', soloNumeros);
             document.getElementById('stock').addEventListener('input', soloNumeros);
-
+            document.getElementById('unidadesProducidas').addEventListener('input', soloNumeros);
+            document.getElementById('totalUnidades').addEventListener('input', soloNumeros);
+            document.getElementById('precio').addEventListener('input', soloNumeros);
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-    const btn2 = document.querySelector('#btn2');
-    if (btn2) {
-        btn2.addEventListener('click', () => {
-            const tablaBody = document.querySelector('table tbody');
-
-            const parametro = {
-                "codigo": document.getElementById('codigo').value,
-                "descripcion": document.getElementById('descripcion').value,
-                "proveedor": document.getElementById('proveedor').value,
-                "fecha": document.getElementById('fecha').value,
-                "serie": document.getElementById('serie').value,
-                "placa": document.getElementById('placa').value,
-                "departamento": document.getElementById('departamento').value
-            };
-
-            $.ajax({
-                data: parametro,
-                type: 'POST',
-                url: 'ajax/select.php',
-
-                success: function(response) {
-                    if (response.trim() === '0') {
-                        alert('No se encontraron registros.');
-                    } else {
-                        tablaBody.innerHTML += response; 
-                        alert('Registros agregados correctamente.');
-
-                        document.getElementById('codigo').value = '';
-                        document.getElementById('descripcion').value = '';
-                        document.getElementById('proveedor').value = '';
-                        document.getElementById('departamento').value = '';
-                        document.getElementById('precio').value = '';
-                        document.getElementById('serie').value = '';
-                        document.getElementById('placa').value = '';
-                        document.getElementById('fecha').value = '';
-                    }
-                },
-                error: function() {
-                    alert('Error en la conexión.');
-                }
-            });
-        });
-    }
-});
+    
 
 let iddepreciacionselect = document.getElementById('depreciacion');
 
@@ -294,14 +249,20 @@ iddepreciacionselect.addEventListener('change', ()=>{
 
 
 let depreciacionanual = 0;
-
 let btnbuscar = document.querySelector('#botoncodigo');
 btnbuscar.addEventListener('click', () => {
     let codigo1 = document.getElementById('codigo').value;
     let iddepreciacion = document.getElementById('depreciacion').value;
+    let cantidad = document.getElementById('stock').value;
+    let marca = document.getElementById('marca').value;
+    let modelo = document.getElementById('modelo').value;
+
 
     let parametrobuscar = {
         "codigo": codigo1,
+        "cantidad": cantidad,
+        "marca": marca,
+        "modelo": modelo,
         "iddepreciacion": iddepreciacion
 
     };
@@ -314,7 +275,7 @@ btnbuscar.addEventListener('click', () => {
             console.log(mensaje_mostrar);
             const respuesta = JSON.parse(mensaje_mostrar);
 
-            if (respuesta.cantidad !== null) {
+            if (respuesta.cantidad !== null && respuesta.success) {
                 document.getElementById('departamento').value = respuesta.iddepartamento;
                 document.getElementById('proveedor').value = respuesta.idproveedor;
                 document.getElementById('descripcion').value = respuesta.descripcion;
@@ -333,8 +294,11 @@ btnbuscar.addEventListener('click', () => {
                     });
 
             } else {
-                alert('No se encontró la cantidad para el producto.');
-            }
+                Swal.fire({
+                icon: "error",
+                title: "Oops... Prueba otro",
+                text: "No existe ese codigo :(",
+        });            }
         }         
     });
 });
@@ -349,7 +313,6 @@ btn1.addEventListener('click', () => {
     let precio = document.getElementById('precio').value;
     let marca = document.getElementById('marca').value;
     let cantidad = document.getElementById('stock').value;
-
     let modelo = document.getElementById('modelo').value;
     let placa = document.getElementById('placa').value;
     let serie = document.getElementById('serie').value;
@@ -390,8 +353,6 @@ btn1.addEventListener('click', () => {
         type: 'POST',
         url: 'ajax/insert.php',
         success: function(mensaje_mostrar) {
-            const respuesta2 = JSON.parse(mensaje_mostrar);
-
             if (mensaje_mostrar.success) {
                 Swal.fire({
                     icon: "success",
@@ -410,21 +371,18 @@ btn1.addEventListener('click', () => {
                 document.getElementById('serie').value = '';
                 document.getElementById('fecha').value = '';
                 document.getElementById('depreciacion').value = '';
-                
-                if(mensaje_mostrar.cantidad){
-                    document.getElementById('stock').value = respuesta2.cantidad;
-
-                }
-                
 
 
             } else {
                 Swal.fire({
                     icon: "success",
-                    title: "Your work has been saved",
+                    title: "Datos guardados",
                     showConfirmButton: false,
                     timer: 1500
                 });
+               
+
+                
                 document.getElementById('codigo').value = '';
                 document.getElementById('descripcion').value = '';
                 document.getElementById('proveedor').value = '';
@@ -432,19 +390,16 @@ btn1.addEventListener('click', () => {
                 document.getElementById('precio').value = '';
                 document.getElementById('marca').value = '';
                 document.getElementById('modelo').value = '';
+                document.getElementById('stock').value = '';
+                document.getElementById('depreciacionvalor').value = '';
                 document.getElementById('placa').value = '';
                 document.getElementById('serie').value = '';
                 document.getElementById('fecha').value = '';
                 document.getElementById('depreciacion').value = '';
-               
-                if(mensaje_mostrar.cantidad){
-                    document.getElementById('stock').value = respuesta2.cantidad;
-
-                }
-                
+                document.getElementById('totalUnidades').value = '';
+                document.getElementById('unidadesProducidas').value = '';
 
             }
-        
         }
     });
 });

@@ -242,12 +242,20 @@ background-color: blue;        }
 
                 success: function(response) {
                     if (response.trim() === '0') {
-                        alert('No se encontraron registros.');
+                        Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "No hay registros :(",
+                    });  
                     } else {
                         tablaBody.innerHTML = response; 
-                        alert('Registros agregados correctamente.');
-
-                        
+                        Swal.fire({
+                        icon: "success",
+                        title: "Datos Encontrados",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                            
                     }
                 },
                 error: function() {
